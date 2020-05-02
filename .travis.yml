@@ -7,7 +7,7 @@ jobs:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker build -t openjdk11-graalvm-install .
         - docker images
-        - docker tag latest $DOCKER_USERNAME/openjdk11-graalvm-install
+        - docker tag openjdk11-graalvm-install $DOCKER_USERNAME/openjdk11-graalvm-install
         - docker push $DOCKER_USERNAME/openjdk11-graalvm-install
     - stage: test
       script: docker run --rm $DOCKER_USERNAME/openjdk11-graalvm-install java -version
