@@ -1,0 +1,14 @@
+dist: trusty
+
+jobs:
+  include:
+    - stage: build docker image
+      script:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker build -t travis-ci-build-stages-demo .
+        - docker images
+        - docker tag latest $DOCKER_USERNAME/openjdk11-graalvm-install
+        - docker push $DOCKER_USERNAME/openjdk11-graalvm-install
+    - stage: test
+      script: docker run --rm $DOCKER_USERNAME/openjdk11-graalvm-install java -version
+    - script: docker run --rm $DOCKER_USERNAME/openjdk11-graalvm-install python -version
