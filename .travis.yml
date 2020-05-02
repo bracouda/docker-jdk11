@@ -5,7 +5,7 @@ jobs:
     - stage: build docker image
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker build -t travis-ci-build-stages-demo .
+        - docker build -t openjdk11-graalvm-install .
         - docker images
         - docker tag latest $DOCKER_USERNAME/openjdk11-graalvm-install
         - docker push $DOCKER_USERNAME/openjdk11-graalvm-install
